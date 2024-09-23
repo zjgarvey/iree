@@ -59,6 +59,8 @@ struct TorchSession
       // ONNX input is a pre-processing step to torch.
       passManager.addNestedPass<func::FuncOp>(
           mlir::torch::onnx_c::createTorchOnnxToTorchPass());
+      mlir::torch::Torch::TorchLoweringPipelineOptions torchOptions{};
+      mlir::torch::Torch::createTorchSimplificationPipeline(passManager, torchOptions);
     }
 
     if (typeMnemonic == "torch" || typeMnemonic == "onnx") {

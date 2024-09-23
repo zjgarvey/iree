@@ -10,11 +10,12 @@
 #include "mlir/IR/BuiltinOps.h"
 #include "mlir/Interfaces/FunctionInterfaces.h"
 #include "mlir/Pass/Pass.h"
+#include "torch-mlir/Dialect/TorchConversion/Transforms/Passes.h"
 
 namespace mlir::iree_compiler::TorchInput {
 
 struct TorchToIREELoweringPipelineOptions
-    : public PassPipelineOptions<TorchToIREELoweringPipelineOptions> {
+    : public PassPipelineOptions<TorchToIREELoweringPipelineOptions>, mlir::torch::Torch::TorchLoweringPipelineOptions {
   Option<bool> strictSymbolicShapes{
       *this, "strict-symbolic-shapes",
       llvm::cl::desc("Use strict symbolic shapes."), llvm::cl::init(true)};
